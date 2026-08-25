@@ -1,0 +1,274 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+<meta name="theme-color" content="#b91c1c">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<title>Quản lý thành viên nhóm Thiên Hà Xanh</title>
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" type="image/png" href="thien-ha-xanh-logo.png">
+<link rel="shortcut icon" type="image/png" href="thien-ha-xanh-logo.png">
+<link rel="apple-touch-icon" href="thien-ha-xanh-logo.png">
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="blood-theme.css">
+<link rel="stylesheet" href="photo.css">
+<link rel="stylesheet" href="auth.css">
+<link rel="stylesheet" href="name-highlight.css">
+<link rel="stylesheet" href="community.css">
+<link rel="stylesheet" href="mobile-notice.css">
+<link rel="stylesheet" href="manager-invite.css">
+<link rel="stylesheet" href="card-slogan.css">
+<link rel="stylesheet" href="app-logo.css">
+</head>
+<body>
+<main class="app">
+<header>
+<div class="logo"><img src="thien-ha-xanh-logo.png" alt="Logo Thiên Hà Xanh"></div>
+<div class="title">
+<small>KHI CHÚNG TA CÙNG NHAU KHÔNG GÌ LÀ KHÔNG THỂ</small>
+<h1>QUẢN LÝ THÀNH VIÊN<br>
+<span>NHÓM THIÊN HÀ XANH</span>
+</h1>
+</div>
+<div class="head-actions">
+<span id="accountInfo" class="account-info">
+</span>
+<button id="notificationButton" class="light">🔔 Thông báo <b id="notificationBadge">0</b></button>
+<button id="adminButton" class="light" hidden>✓ Duyệt tài khoản</button>
+<button id="signOutButton" class="light">Đăng xuất</button>
+<button id="exportButton" class="light">⇩ Xuất danh sách</button>
+<button id="fullscreen" class="square">⛶</button>
+</div>
+</header>
+<section class="stats">
+<article>
+<span>👥</span>
+<div>
+<small>TỔNG THÀNH VIÊN</small>
+<b id="total">0</b>
+</div>
+</article>
+<article>
+<span>🩸</span>
+<div>
+<small>TÌNH NGUYỆN VIÊN</small>
+<b id="volunteerCount">0</b>
+</div>
+</article>
+<article class="leader-stat">
+<span>★</span>
+<div>
+<small>NHÓM TRƯỞNG</small>
+<b id="leaderName">Chưa có</b>
+</div>
+</article>
+<article class="leader-stat">
+<span>◆</span>
+<div>
+<small>NHÓM PHÓ</small>
+<b id="deputyName">Chưa có</b>
+</div>
+</article>
+</section>
+<section class="toolbar">
+<div class="search">
+<span>⌕</span>
+<input id="searchInput" type="search" placeholder="Tìm theo tên, mã sinh viên, lớp, khoa hoặc số điện thoại...">
+</div>
+<select id="membershipFilter">
+<option value="all">Tất cả đối tượng</option>
+<option value="volunteer">Tình nguyện viên</option>
+<option value="association">Hội viên</option>
+</select>
+<select id="roleFilter">
+<option value="all">Tất cả vai trò</option>
+<option value="leader">Nhóm trưởng</option>
+<option value="deputy">Nhóm phó</option>
+<option value="member">Thành viên</option>
+</select>
+<button id="addButton" class="primary">＋ Thêm thành viên</button>
+</section>
+<section class="content">
+<aside>
+<h2>CƠ CẤU NHÓM</h2>
+<button class="filter active" data-role="all">
+<span>✦</span>
+<div>Tất cả<b id="allBadge">0</b>
+</div>
+</button>
+<button class="filter" data-role="leader">
+<span>★</span>
+<div>Nhóm trưởng<b id="leaderBadge">0</b>
+</div>
+</button>
+<button class="filter" data-role="deputy">
+<span>◆</span>
+<div>Nhóm phó<b id="deputyBadge">0</b>
+</div>
+</button>
+<button class="filter" data-role="member">
+<span>●</span>
+<div>Thành viên<b id="memberBadge">0</b>
+</div>
+</button>
+<p>Dữ liệu được lưu riêng trên thiết bị này.</p>
+</aside>
+<section class="members">
+<div class="section-head">
+<div>
+<h2>DANH SÁCH THÀNH VIÊN</h2>
+<p id="resultInfo">0 người</p>
+</div>
+<div class="view-buttons">
+<button class="active" data-view="cards">▦</button>
+<button data-view="table">☷</button>
+</div>
+</div>
+<div id="memberList" class="member-grid">
+</div>
+</section>
+</section>
+<button id="mobileAdd" class="fab">＋</button>
+</main>
+<dialog id="memberDialog">
+<form id="memberForm">
+<div class="dialog-head">
+<div>
+<small>THIÊN HÀ XANH · KHI CHÚNG TA CÙNG NHAU KHÔNG GÌ LÀ KHÔNG THỂ</small>
+<h2 id="formTitle">Thêm thành viên</h2>
+</div>
+<button type="button" data-close>×</button>
+</div>
+<input id="editId" type="hidden">
+<div class="photo-editor">
+<div id="photoPreview" class="photo-preview">
+<span>📷</span>
+<small>Chưa có ảnh</small>
+</div>
+<div>
+<label class="photo-button" for="photoInput">Chọn ảnh thành viên</label>
+<input id="photoInput" type="file" accept="image/jpeg,image/png,image/webp" hidden>
+<button id="removePhoto" type="button" class="remove-photo">Xóa ảnh</button>
+<p>Ảnh được tự động nén trước khi lưu.</p>
+</div>
+</div>
+<label>Họ và tên<input id="fullName" required maxlength="60" placeholder="Nguyễn Văn A">
+</label>
+<label>Mã sinh viên<input id="studentId" required maxlength="30" placeholder="VD: 23123456">
+</label>
+<div class="two">
+<label>Vai trò<select id="role" required>
+<option value="member">Thành viên</option>
+<option value="deputy">Nhóm phó</option>
+<option value="leader">Nhóm trưởng</option>
+</select>
+</label>
+<label>Đối tượng<select id="membership" required>
+<option value="volunteer">Tình nguyện viên</option>
+<option value="association">Hội viên</option>
+</select>
+</label>
+</div>
+<div class="two">
+<label>Lớp<input id="className" required maxlength="30" placeholder="CNTT K24A">
+</label>
+<label>Khoa<input id="faculty" required maxlength="60" placeholder="Công nghệ thông tin">
+</label>
+</div>
+<label>Số điện thoại<input id="phone" required type="tel" inputmode="tel" maxlength="15" placeholder="0901 234 567" pattern="[0-9 +.-]{9,15}">
+</label>
+<div class="dialog-actions">
+<button type="button" class="light" data-close>Hủy</button>
+<button class="primary" type="submit">Lưu thành viên</button>
+</div>
+</form>
+</dialog>
+<div id="loginScreen" class="login-screen">
+<div class="login-card">
+<div class="login-heart"><img src="thien-ha-xanh-logo.png" alt="Logo Thiên Hà Xanh"></div>
+<small>NHÓM THIÊN HÀ XANH</small>
+<div class="auth-tabs">
+<button id="showLogin" class="active" type="button">Đăng nhập</button>
+<button id="showRegister" type="button">Đăng ký</button>
+</div>
+<form id="loginForm">
+<h2>Đăng nhập tài khoản</h2>
+<p>Trưởng/phó cần admin duyệt; thành viên được kích hoạt tự động.</p>
+<label>Email<input id="loginEmail" type="email" required autocomplete="username" placeholder="email@example.com">
+</label>
+<label>Mật khẩu<input id="loginPassword" type="password" required minlength="6" autocomplete="current-password">
+</label>
+<button class="primary" type="submit">Đăng nhập</button>
+</form>
+<form id="registerForm" hidden>
+<h2>Đăng ký tài khoản</h2>
+<p>Thành viên dùng ngay; tài khoản trưởng/phó cần admin phê duyệt.</p>
+<label>Họ và tên<input id="registerName" required maxlength="60" autocomplete="name">
+</label>
+<label>Email<input id="registerEmail" type="email" required autocomplete="email">
+</label>
+<label>Mật khẩu<input id="registerPassword" type="password" required minlength="6" autocomplete="new-password">
+</label>
+<label>Vai trò đăng ký<select id="registerRole">
+<option value="leader">Nhóm trưởng</option>
+<option value="deputy">Nhóm phó</option>
+<option value="member">Thành viên</option>
+</select>
+</label>
+<div id="memberRegistrationFields" hidden>
+<label>Mã liên kết do trưởng/phó cung cấp (nếu có)<input id="registerInviteCode" maxlength="12" placeholder="VD: A1B2C3D4">
+</label>
+<label>Mã sinh viên<input id="registerStudentId" maxlength="30" placeholder="VD: 23123456">
+</label>
+<div class="two">
+<label>Lớp<input id="registerClass" maxlength="30" placeholder="CNTT K24A">
+</label>
+<label>Khoa<input id="registerFaculty" maxlength="60" placeholder="Công nghệ thông tin">
+</label>
+</div>
+<label>Số điện thoại<input id="registerPhone" type="tel" maxlength="15" pattern="[0-9 +.-]{9,15}" placeholder="0901 234 567">
+</label>
+</div>
+<button class="primary" type="submit">Gửi đăng ký</button>
+</form>
+<p id="loginMessage" class="login-message">
+</p>
+</div>
+</div>
+<dialog id="adminDialog" class="admin-dialog">
+<div class="dialog-head">
+<div>
+<small>QUẢN TRỊ HỆ THỐNG</small>
+<h2>Duyệt tài khoản</h2>
+</div>
+<button id="closeAdmin" type="button">×</button>
+</div>
+<p>Chỉ tài khoản đã duyệt mới có thể xem và sửa dữ liệu nhóm.</p>
+<section class="manager-invites"><h3>Tạo link mời quản lý</h3><p>Link dùng một lần và có hiệu lực trong 7 ngày.</p><div><button id="createLeaderInvite" class="primary" type="button">＋ Mời nhóm trưởng</button><button id="createDeputyInvite" class="primary" type="button">＋ Mời nhóm phó</button></div><label>Link vừa tạo<input id="managerInviteLink" readonly placeholder="Link sẽ xuất hiện tại đây"></label><button id="copyManagerInvite" type="button">Sao chép link</button></section>
+<div id="accountList" class="account-list">
+</div>
+</dialog>
+<dialog id="notificationDialog" class="notification-dialog">
+<div class="notification-wrap">
+<div class="dialog-head"><div><small>THIÊN HÀ XANH</small><h2>Thông báo hoạt động</h2></div><button id="closeNotifications" type="button">×</button></div>
+<form id="notificationForm" hidden>
+<div class="two"><label>Loại thông báo<select id="noticeType"><option value="hospital_shift">Trực viện</option><option value="donation_site">Trực điểm hiến máu</option><option value="general">Thông báo chung</option></select></label><label>Thời gian<input id="noticeTime" type="datetime-local"></label></div>
+<label>Tiêu đề<input id="noticeTitle" required maxlength="100"></label>
+<label>Địa điểm<input id="noticeLocation" maxlength="120"></label>
+<label>Nội dung<textarea id="noticeContent" required maxlength="1000" rows="3"></textarea></label>
+<button class="primary" type="submit">Đăng thông báo</button>
+</form>
+<div id="notificationList" class="notification-list"></div>
+</div>
+</dialog>
+<div id="toast" class="toast">
+</div>
+<script src="supabase-config.js">
+</script>
+<script src="cloud-auth.js">
+</script>
+</body>
+</html>
+
