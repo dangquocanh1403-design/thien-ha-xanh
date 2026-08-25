@@ -75,3 +75,6 @@ revoke all on function public.register_for_duty(uuid) from public;
 revoke all on function public.cancel_duty_registration(uuid) from public;
 grant execute on function public.register_for_duty(uuid) to authenticated;
 grant execute on function public.cancel_duty_registration(uuid) to authenticated;
+
+-- Yêu cầu PostgREST cập nhật ngay các bảng và hàm vừa tạo.
+notify pgrst, 'reload schema';

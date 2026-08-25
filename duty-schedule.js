@@ -11,7 +11,7 @@ async function loadDuties(){
     const schedules=await call("/rest/v1/duty_schedules?select=*&order=starts_at.asc"),registrations=await call("/rest/v1/duty_registrations?select=*&order=created_at.asc");
     q("#dutyMessage").textContent="";
     q("#dutyList").innerHTML=schedules.length?schedules.map(schedule=>renderDuty(schedule,registrations.filter(r=>r.schedule_id===schedule.id))).join(""):"<p>Chưa có lịch trực nào được tạo.</p>";
-  }catch(error){q("#dutyMessage").textContent=`Không tải được lịch: ${error.message}`}
+  }catch(error){const missing=/schema cache|duty_schedules/i.test(error.message);q("#dutyMessage").textContent=missing?"Chưa cài đặt dữ liệu lịch trực. Hãy chạy file supabase-dang-ky-lich-truc.sql trong Supabase SQL Editor.":`Không tải được lịch: ${error.message}`}
 }
 function renderDuty(schedule,people){
   const mine=people.some(p=>p.user_id===window.currentUserId),full=people.length>=schedule.capacity,ended=new Date(schedule.ends_at)<=new Date(),canRegister=["leader","deputy","member"].includes(window.currentManagerProfile?.role);

@@ -17,7 +17,7 @@ header .title>small{max-width:none;white-space:nowrap;font-size:9px;letter-spaci
 header .title h1{white-space:nowrap}
 header .head-actions{flex:1;min-width:0;flex-wrap:wrap;justify-content:flex-end;align-items:center}
 @media(max-width:1200px){header{flex-wrap:wrap}header .head-actions{flex-basis:100%;justify-content:flex-end}header .title{flex:1;min-width:360px}}
-@media(max-width:650px){header .title{min-width:0;flex:1}header .title>small{white-space:normal;font-size:7px}header .title h1{white-space:normal}header .head-actions{flex-basis:auto;flex-wrap:nowrap}}
+@media(max-width:650px){header .title{min-width:0;flex:1}header .title>small{white-space:normal;font-size:7px}header .title h1{white-space:normal}header .head-actions{display:flex!important;flex:0 0 auto;flex-basis:auto;flex-wrap:wrap;justify-content:flex-end}header #signOutButton{display:block!important;width:42px;min-width:42px;padding:9px!important;font-size:0!important}header #signOutButton::after{content:"↪";font-size:20px!important}header #signOutButton{order:90}}
 .stats small{
   display:block!important;
   width:auto!important;
