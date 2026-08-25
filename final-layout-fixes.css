@@ -1,0 +1,37 @@
+html{
+  height:auto!important;
+  min-height:100%!important;
+  overflow-x:hidden!important;
+  overflow-y:scroll!important;
+  overscroll-behavior:auto!important;
+}
+body{
+  height:auto!important;
+  min-height:100%!important;
+  overflow:visible!important;
+  overscroll-behavior:auto!important;
+  touch-action:auto!important;
+}
+header .title{flex:0 0 390px;min-width:390px}
+header .title>small{max-width:none;white-space:nowrap;font-size:9px;letter-spacing:.16em}
+header .title h1{white-space:nowrap}
+header .head-actions{flex:1;min-width:0;flex-wrap:wrap;justify-content:flex-end;align-items:center}
+@media(max-width:1200px){header{flex-wrap:wrap}header .head-actions{flex-basis:100%;justify-content:flex-end}header .title{flex:1;min-width:360px}}
+@media(max-width:650px){header .title{min-width:0;flex:1}header .title>small{white-space:normal;font-size:7px}header .title h1{white-space:normal}header .head-actions{flex-basis:auto;flex-wrap:nowrap}}
+.stats small{
+  display:block!important;
+  width:auto!important;
+  max-width:100%!important;
+  margin:0!important;
+  padding:0!important;
+  border:0!important;
+  border-radius:0!important;
+  background:none!important;
+  box-shadow:none!important;
+  color:#111!important;
+  font-size:10px!important;
+  font-weight:900!important;
+  line-height:1.3!important;
+  letter-spacing:.045em!important;
+}
+@media(max-width:900px){.stats small{font-size:9px!important;letter-spacing:.02em!important}}

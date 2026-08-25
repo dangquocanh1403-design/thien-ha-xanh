@@ -22,6 +22,8 @@
 <link rel="stylesheet" href="card-slogan.css">
 <link rel="stylesheet" href="app-logo.css">
 <link rel="stylesheet" href="association-stat.css">
+<link rel="stylesheet" href="final-layout-fixes.css">
+<link rel="stylesheet" href="duty-schedule.css">
 </head>
 <body>
 <main class="app">
@@ -36,6 +38,7 @@
 <div class="head-actions">
 <span id="accountInfo" class="account-info">
 </span>
+<button id="dutyButton" class="light">📅 Đăng ký lịch trực</button>
 <button id="notificationButton" class="light">🔔 Thông báo <b id="notificationBadge">0</b></button>
 <button id="adminButton" class="light" hidden>✓ Duyệt tài khoản</button>
 <button id="signOutButton" class="light">Đăng xuất</button>
@@ -47,7 +50,7 @@
 <article>
 <span>👥</span>
 <div>
-<small>SỐ THÀNH VIÊN</small>
+<small>TỔNG THÀNH VIÊN</small>
 <b id="total">0</b>
 </div>
 </article>
@@ -271,6 +274,21 @@
 <div id="notificationList" class="notification-list"></div>
 </div>
 </dialog>
+<dialog id="dutyDialog" class="duty-dialog">
+<div class="duty-wrap">
+<div class="dialog-head"><div><small>THIÊN HÀ XANH</small><h2>Đăng ký lịch trực</h2></div><button id="closeDuty" type="button">×</button></div>
+<form id="dutyForm" hidden>
+<h3>Tạo lịch mới</h3>
+<div class="two"><label>Loại lịch<select id="dutyType" required><option value="hospital">Trực viện</option><option value="donation_site">Trực điểm hiến máu</option></select></label><label>Thời gian bắt đầu<input id="dutyStart" type="datetime-local" required></label></div>
+<div class="two"><label>Thời gian kết thúc<input id="dutyEnd" type="datetime-local" required></label><label>Số người tối đa<input id="dutyCapacity" type="number" min="1" max="200" value="10" required></label></div>
+<label>Địa điểm<input id="dutyLocation" maxlength="150" required placeholder="Tên bệnh viện hoặc điểm hiến máu"></label>
+<label>Ghi chú<textarea id="dutyNote" maxlength="500" rows="2" placeholder="Yêu cầu hoặc thông tin cần lưu ý"></textarea></label>
+<button class="primary" type="submit">＋ Tạo lịch trực</button>
+</form>
+<p id="dutyMessage" class="duty-message"></p>
+<div id="dutyList" class="duty-list"></div>
+</div>
+</dialog>
 <div id="toast" class="toast">
 </div>
 <script src="supabase-config.js">
@@ -278,6 +296,8 @@
 <script src="cloud-auth.js">
 </script>
 <script src="association-stat.js">
+</script>
+<script src="duty-schedule.js">
 </script>
 </body>
 </html>
