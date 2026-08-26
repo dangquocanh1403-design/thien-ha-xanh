@@ -5,9 +5,9 @@
 1. Đăng ký tại https://onesignal.com và tạo một Web App.
 2. Chọn **Custom Code** và nhập Site URL: `https://thien-ha-xanh.onrender.com`.
 3. Trong Web Settings > Advanced Push Settings, đặt:
-   - Service worker path: `/push/onesignal/`
-   - Filename: `OneSignalSDKWorker.js`
-   - Scope: `/push/onesignal/`
+   - Service worker path: `/`
+   - Filename: `service-worker.js`
+   - Scope: `/`
 4. Sao chép **OneSignal App ID** và **REST API Key** trong Keys & IDs.
 
 ## 2. Cấu hình website

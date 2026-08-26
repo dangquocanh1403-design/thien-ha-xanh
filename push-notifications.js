@@ -8,7 +8,7 @@ else{
   window.OneSignalDeferred=window.OneSignalDeferred||[];
   window.OneSignalDeferred.push(async OneSignal=>{
     sdk=OneSignal;
-    await OneSignal.init({appId:config.oneSignalAppId,serviceWorkerPath:"push/onesignal/OneSignalSDKWorker.js",serviceWorkerParam:{scope:"/push/onesignal/"},allowLocalhostAsSecureOrigin:true});
+    await OneSignal.init({appId:config.oneSignalAppId,serviceWorkerPath:"service-worker.js",serviceWorkerParam:{scope:"/"},allowLocalhostAsSecureOrigin:true});
     const syncUser=async()=>{if(window.currentUserId&&window.currentUserId!==lastUser){lastUser=window.currentUserId;await OneSignal.login(lastUser)}const enabled=Boolean(OneSignal.User.PushSubscription.optedIn);setStatus(enabled?"Đã bật trên thiết bị này":"Chưa bật trên thiết bị này",enabled);button.textContent=enabled?"✓ Đã bật":"🔔 Bật thông báo"};
     OneSignal.User.PushSubscription.addEventListener("change",syncUser);
     setInterval(syncUser,1200);syncUser();
