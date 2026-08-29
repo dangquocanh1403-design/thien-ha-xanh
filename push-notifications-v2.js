@@ -48,7 +48,7 @@ button.addEventListener("click",async()=>{
 window.sendPhonePush=async notice=>{
   if(!configured||!window.thxCloudRequest)throw new Error("Chưa cấu hình dịch vụ gửi thông báo");
   const response=await window.thxCloudRequest("/functions/v1/send-push-notification",{method:"POST",body:JSON.stringify({title:notice.title,content:notice.content,type:notice.type,location:notice.location,event_time:notice.event_time})});
-  if(!response?.result?.recipients)throw new Error("OneSignal chưa có điện thoại nào ở trạng thái Subscribed");
+  if(!response?.ok||!response?.result?.id)throw new Error(response?.result?.errors?.join?.(", ")||"OneSignal không xác nhận được yêu cầu gửi");
   return response;
 };
 }
